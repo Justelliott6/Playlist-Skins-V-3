@@ -1,183 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playlist Skins App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
 
-<title>Playlist Skins App</title>
+    h1 {
+      margin: 0 0 8px;
+      font-size: 3rem;
+      font-weight: 700;
+    }
 
-<link rel="manifest" href="manifest.json">
+    .subtitle {
+      margin: 0 0 28px;
+      color: #ccc;
+      font-size: 14px;
+    }
 
-<style>
+    .controls {
+      max-width: 560px;
+      margin: 0 auto 28px;
+    }
 
-body{
-  font-family: Arial, sans-serif;
-  background:#000;
-  color:white;
-  text-align:center;
-  padding:20px;
-}
+    .controls p {
+      margin: 0 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-h1{
-  margin-bottom:5px;
-}
+    .controls input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #000;
+      color: #fff;
+      font-size: 16px;
+    }
 
-.subtitle{
-  color:#ccc;
-  margin-bottom:25px;
-}
+    .controls button {
+      margin-top: 14px;
+      padding: 12px 26px;
+      border: 0;
+      border-radius: 10px;
+      background: #ffcc00;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-/* playlist input */
+    .controls .hint {
+      margin-top: 10px;
+      color: #ccc;
+      font-size: 13px;
+    }
 
-#playlist-input{
-  margin:20px auto;
-  max-width:500px;
-}
+    #skin-container {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-#playlist-url{
-  width:100%;
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #555;
-  background:#000;
-  color:#fff;
-}
+    #boombox {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-#playlist-btn{
-  margin-top:12px;
-  padding:10px 18px;
-  border:none;
-  border-radius:6px;
-  background:#ffc600;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
+    #spotify-player-wrap {
+      position: absolute;
+      top: 5.4%;
+      left: 12.4%;
+      width: 64.8%;
+      height: 8.2%;
+      overflow: hidden;
+      border-radius: 8px;
+      background: transparent;
+      display: none;
+    }
 
-/* boombox container */
+    #spotify-player {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
 
-#skin-container{
-  position:relative;
-  max-width:600px;
-  margin:30px auto;
-}
-
-#boombox{
-  width:100%;
-  height:auto;
-}
-
-/* spotify player positioning */
-
-#spotify-player-wrap{
-  position:absolute;
-  top:32px;
-  left:50px;
-  width:500px;
-  height:60px;
-  overflow:hidden;
-  border-radius:8px;
-}
-
-#spotify-player{
-  width:100%;
-  height:100%;
-  border:0;
-  display:none;
-}
-
-</style>
+    .error {
+      margin-top: 12px;
+      color: #ff7777;
+      min-height: 20px;
+    }
+  </style>
 </head>
-
 <body>
+  <h1>Playlist Skins App</h1>
+  <p class="subtitle">Add this app to your device and bring back Rock 101.</p>
 
-<h1>Playlist Skins App</h1>
-<p class="subtitle">Add this app to your device and bring back Rock 101.</p>
+  <div class="controls">
+    <p>Paste your Spotify playlist link:</p>
+    <input
+      type="text"
+      id="playlist-url"
+      placeholder="https://open.spotify.com/playlist/..."
+    />
+    <button id="playlist-btn" type="button">Load Playlist</button>
+    <div class="hint">Use a full Spotify playlist link.</div>
+    <div class="error" id="error-msg"></div>
+  </div>
 
-<div id="playlist-input">
+  <div id="skin-container">
+    <img id="boombox" src="Boom Box (1).png" alt="Boombox skin" />
+    <div id="spotify-player-wrap">
+      <iframe
+        id="spotify-player"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
 
-<p>Paste your Spotify playlist link:</p>
+  <script>
+    const playlistInput = document.getElementById("playlist-url");
+    const playlistBtn = document.getElementById("playlist-btn");
+    const spotifyPlayer = document.getElementById("spotify-player");
+    const spotifyWrap = document.getElementById("spotify-player-wrap");
+    const errorMsg = document.getElementById("error-msg");
+    const boombox = document.getElementById("boombox");
 
-<input
-type="text"
-id="playlist-url"
-placeholder="https://open.spotify.com/playlist/...">
+    boombox.addEventListener("error", function () {
+      errorMsg.textContent = 'Image not found. Make sure "Boom Box (1).png" is in the same folder as index.html.';
+    });
 
-<br>
+    function getSpotifyEmbedUrl(url) {
+      const match = url.match(/spotify\.com\/playlist\/([a-zA-Z0-9]+)/);
+      if (!match) return null;
+      return "https://open.spotify.com/embed/playlist/" + match[1] + "?utm_source=generator&theme=0";
+    }
 
-<button id="playlist-btn">Load Playlist</button>
+    playlistBtn.addEventListener("click", function () {
+      errorMsg.textContent = "";
+      const url = playlistInput.value.trim();
+      if (!url) {
+        errorMsg.textContent = "Paste a Spotify playlist link first.";
+        return;
+      }
 
-</div>
+      const embedUrl = getSpotifyEmbedUrl(url);
+      if (!embedUrl) {
+        errorMsg.textContent = "That does not look like a valid Spotify playlist link.";
+        return;
+      }
 
-
-<div id="skin-container">
-
-<img id="boombox" src="Boom Box (1).png">
-
-<div id="spotify-player-wrap">
-
-<iframe
-id="spotify-player"
-allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-loading="lazy">
-</iframe>
-
-</div>
-
-</div>
-
-
-<script src="install-prompt.js"></script>
-
-<script>
-
-/* register service worker */
-
-if ("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("service-worker.js");
-  });
-}
-
-/* spotify playlist loader */
-
-const playlistInput=document.getElementById("playlist-url");
-const playlistBtn=document.getElementById("playlist-btn");
-const spotifyPlayer=document.getElementById("spotify-player");
-
-function getSpotifyEmbedUrl(url){
-
-const match=url.match(/playlist\/([a-zA-Z0-9]+)/);
-
-if(!match) return null;
-
-const id=match[1];
-
-return `https://open.spotify.com/embed/playlist/${id}?utm_source=generator`;
-
-}
-
-playlistBtn.addEventListener("click",()=>{
-
-const url=playlistInput.value.trim();
-
-if(!url) return;
-
-const embed=getSpotifyEmbedUrl(url);
-
-if(!embed){
-alert("Invalid Spotify playlist link");
-return;
-}
-
-spotifyPlayer.src=embed;
-spotifyPlayer.style.display="block";
-
-});
-
-</script>
-
+      spotifyPlayer.src = embedUrl;
+      spotifyWrap.style.display = "block";
+    });
+  </script>
 </body>
 </html>
-
-    
