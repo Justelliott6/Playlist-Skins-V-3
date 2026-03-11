@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Playlist Skins V4</title>
+  <title>Playlist Skins V3</title>
   <style>
     :root {
       --bg: #050607;
@@ -13,7 +13,6 @@
       --muted: #9aa7bb;
       --accent: #ffd82b;
       --accent-dark: #201400;
-
       --slot-top: 19.4%;
       --slot-left: 11%;
       --slot-width: 69.8%;
@@ -21,9 +20,7 @@
       --slot-radius: 8px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -79,7 +76,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: 1.7fr 1fr 0.9fr;
+      grid-template-columns: 1.6fr 0.9fr 0.8fr;
       gap: 14px;
     }
 
@@ -162,14 +159,9 @@
       box-shadow: 0 18px 42px rgba(0,0,0,0.45);
     }
 
-    .skin-image {
+    .skin-canvas {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      z-index: 1;
     }
 
     .slot {
@@ -181,22 +173,17 @@
       border-radius: var(--slot-radius);
       overflow: hidden;
       z-index: 10;
-      background: rgba(0,0,0,0.14);
+      background: rgba(0,0,0,0.18);
     }
 
-    .slot iframe {
-  width: 100%;
-  height: 160%;
-  border: 0;
-  transform: translateY(-28%);
-}
+    .slot iframe,
+    .slot .link-card {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
 
-.slot .link-card {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
     .badge {
       position: absolute;
       z-index: 11;
@@ -265,17 +252,166 @@
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 90px;
       resize: vertical;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       line-height: 1.45;
       font-size: 0.82rem;
     }
 
-    .mini-note {
-      margin-top: 12px;
-      color: #cfd7e9;
-      font-size: 0.88rem;
+    /* SKINS */
+
+    .skin {
+      position: absolute;
+      inset: 0;
+    }
+
+    .boombox {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0) 0 13%, #6c4b2e 13% 18%, transparent 18% 100%),
+        linear-gradient(180deg, #7f2b2a 0%, #d55257 50%, #c44545 100%);
+    }
+    .boombox::before {
+      content: "";
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      top: 12%;
+      height: 10%;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #20140d, #6d4b27 35%, #1a110b);
+      box-shadow: 0 0 0 3px rgba(250,220,160,0.12);
+    }
+    .boombox::after {
+      content: "BRING BACK\A ROCK 101";
+      white-space: pre;
+      position: absolute;
+      left: 23%;
+      top: 38%;
+      font-size: clamp(2rem, 7vw, 6rem);
+      line-height: 0.92;
+      font-weight: 1000;
+      color: #f8d56a;
+    }
+    .boombox .speaker-l,
+    .boombox .speaker-r {
+      position: absolute;
+      top: 49%;
+      width: 24%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #352114 0 9%, #17100a 10% 24%, #0a0705 25% 100%);
+      border: 5px solid #bd8f72;
+      box-shadow: inset 0 0 0 3px #46291d;
+    }
+    .boombox .speaker-l { left: 5%; }
+    .boombox .speaker-r { right: 5%; }
+
+    .hiphop {
+      background:
+        linear-gradient(135deg, rgba(255,0,122,0.18), transparent 30%),
+        linear-gradient(225deg, rgba(0,255,255,0.12), transparent 30%),
+        linear-gradient(180deg, #101010 0%, #1a1412 100%);
+    }
+    .hiphop::before {
+      content: "STREET\A HEAT";
+      white-space: pre;
+      position: absolute;
+      left: 16%;
+      top: 36%;
+      font-size: clamp(2rem, 8vw, 7rem);
+      line-height: 0.88;
+      font-weight: 1000;
+      color: #ffdd2f;
+      transform: rotate(-8deg);
+      text-shadow: 4px 4px 0 #ff0077, 8px 8px 0 rgba(0,255,255,0.45);
+    }
+    .hiphop .speaker-l,
+    .hiphop .speaker-r {
+      position: absolute;
+      top: 50%;
+      width: 26%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #161616 0 10%, #0a0a0a 11% 26%, #1b1b1b 27% 100%);
+      border: 6px solid #484848;
+      box-shadow: 0 0 0 4px #111;
+    }
+    .hiphop .speaker-l { left: 4%; }
+    .hiphop .speaker-r { right: 4%; }
+
+    .vinyl {
+      background: linear-gradient(180deg, #4c3119 0%, #725029 100%);
+    }
+    .vinyl::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 56%;
+      width: 42%;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #d4b05e 0 5%, #111 6% 18%, #1f1f1f 19% 27%, #090909 28% 100%);
+      box-shadow: 0 0 0 7px rgba(0,0,0,0.24);
+    }
+    .vinyl::after {
+      content: "NEEDLE DROP";
+      position: absolute;
+      left: 50%;
+      top: 13%;
+      transform: translateX(-50%);
+      font-size: clamp(1.4rem, 3.5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #f8dfa3;
+    }
+
+    .neon {
+      background:
+        radial-gradient(circle at 50% 18%, rgba(0,255,255,0.18), transparent 20%),
+        radial-gradient(circle at 20% 80%, rgba(255,0,255,0.12), transparent 25%),
+        linear-gradient(180deg, #0b1025 0%, #150c29 100%);
+    }
+    .neon::before {
+      content: "NIGHT PULSE";
+      position: absolute;
+      left: 50%;
+      top: 13%;
+      transform: translateX(-50%);
+      font-size: clamp(1.7rem, 4vw, 3.3rem);
+      font-weight: 1000;
+      color: #bcf7ff;
+      text-shadow: 0 0 6px #00f0ff, 0 0 16px #00f0ff, 0 0 28px rgba(255,0,255,0.55);
+    }
+
+    .cassette {
+      background: linear-gradient(180deg, #73604f 0%, #4f4034 100%);
+    }
+    .cassette::before {
+      content: "";
+      position: absolute;
+      left: 16%;
+      top: 31%;
+      width: 68%;
+      height: 34%;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 25% 50%, #111 0 9%, transparent 10%),
+        radial-gradient(circle at 75% 50%, #111 0 9%, transparent 10%),
+        linear-gradient(180deg, #d7ceb8 0%, #eadfc5 55%, #d1c19f 100%);
+      box-shadow: inset 0 0 0 8px #31261d, 0 10px 20px rgba(0,0,0,0.22);
+    }
+    .cassette::after {
+      content: "TAPE RUN";
+      position: absolute;
+      left: 50%;
+      top: 18%;
+      transform: translateX(-50%);
+      font-size: clamp(1.5rem, 3.8vw, 3rem);
+      font-weight: 1000;
+      letter-spacing: 0.12em;
+      color: #f2e0a9;
     }
 
     @media (max-width: 860px) {
@@ -288,11 +424,9 @@
       .wrap {
         width: calc(100% - 14px);
       }
-
       .panel {
         padding: 14px;
       }
-
       button {
         width: 100%;
       }
@@ -303,7 +437,7 @@
   <div class="wrap">
     <header>
       <h1>Playlist Skins</h1>
-      <p>Pick a skin, paste a music link, and build something people will actually want to share.</p>
+      <p>Paste a music link, pick a skin, and make something worth sharing.</p>
     </header>
 
     <section class="panel">
@@ -313,18 +447,16 @@
           <label for="musicUrl">Music link</label>
           <input id="musicUrl" type="text" placeholder="Spotify, SoundCloud, YouTube, Apple Music, or Amazon Music link">
         </div>
-
         <div>
           <label for="skinSelect">Skin</label>
           <select id="skinSelect">
-            <option value="rock101">Bring Back Rock 101</option>
+            <option value="boombox">Retro Boombox</option>
             <option value="hiphop">Street Heat</option>
             <option value="vinyl">Needle Drop</option>
             <option value="neon">Night Pulse</option>
             <option value="cassette">Tape Run</option>
           </select>
         </div>
-
         <div>
           <label for="platformMode">Platform mode</label>
           <select id="platformMode">
@@ -345,7 +477,7 @@
       </div>
 
       <div class="hint">
-        Spotify, SoundCloud, and YouTube try to embed. Apple Music and Amazon Music use styled open-link cards.
+        This build focuses on the engine working first. Spotify, SoundCloud, and YouTube try to embed. Apple and Amazon use clean open-link cards.
       </div>
       <div class="status" id="statusMsg"></div>
     </section>
@@ -353,13 +485,13 @@
     <section class="panel">
       <h2>2. Preview</h2>
       <div class="preview-shell">
-        <img id="skinImage" class="skin-image" alt="Selected playlist skin">
-        <div class="badge skin-badge" id="skinBadge">Bring Back Rock 101</div>
+        <div class="skin-canvas" id="skinCanvas"></div>
+        <div class="badge skin-badge" id="skinBadge">Retro Boombox</div>
         <div class="badge platform-badge" id="platformBadge">Spotify</div>
         <div class="slot" id="mediaSlot"></div>
       </div>
-      <div class="mini-note">
-        This version uses real image skins. Once the engine feels right, swap the placeholder image URLs with your final artwork.
+      <div class="hint">
+        Once this version is behaving, we add your real art skins and the embed-code generator.
       </div>
     </section>
 
@@ -380,7 +512,7 @@
     const copyShareBtn = document.getElementById('copyShareBtn');
     const openLinkBtn = document.getElementById('openLinkBtn');
     const mediaSlot = document.getElementById('mediaSlot');
-    const skinImage = document.getElementById('skinImage');
+    const skinCanvas = document.getElementById('skinCanvas');
     const skinBadge = document.getElementById('skinBadge');
     const platformBadge = document.getElementById('platformBadge');
     const shareCode = document.getElementById('shareCode');
@@ -396,60 +528,30 @@
     };
 
     const skins = {
-      rock101: {
-        name: 'Bring Back Rock 101',
-        image: 'https://primary.jwwb.nl/public/g/u/b/temp-lwmvpgonevezulioxwug/untitled-design-high.png',
-        slot: {
-          top: '19.4%',
-          left: '11%',
-          width: '69.8%',
-          height: '4.9%',
-          radius: '8px'
-        }
+      boombox: {
+        name: 'Retro Boombox',
+        slot: { top: '19.4%', left: '11%', width: '69.8%', height: '4.9%', radius: '8px' },
+        html: '<div class="skin boombox"><div class="speaker-l"></div><div class="speaker-r"></div></div>'
       },
       hiphop: {
         name: 'Street Heat',
-        image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80',
-        slot: {
-          top: '16.8%',
-          left: '9.5%',
-          width: '74%',
-          height: '6.4%',
-          radius: '10px'
-        }
+        slot: { top: '17.8%', left: '10.5%', width: '73.5%', height: '6.2%', radius: '10px' },
+        html: '<div class="skin hiphop"><div class="speaker-l"></div><div class="speaker-r"></div></div>'
       },
       vinyl: {
         name: 'Needle Drop',
-        image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80',
-        slot: {
-          top: '14%',
-          left: '13%',
-          width: '74%',
-          height: '6.5%',
-          radius: '999px'
-        }
+        slot: { top: '17.5%', left: '14%', width: '72%', height: '6%', radius: '999px' },
+        html: '<div class="skin vinyl"></div>'
       },
       neon: {
         name: 'Night Pulse',
-        image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80',
-        slot: {
-          top: '16%',
-          left: '10%',
-          width: '75%',
-          height: '6.2%',
-          radius: '12px'
-        }
+        slot: { top: '18.2%', left: '10.8%', width: '72%', height: '5.8%', radius: '12px' },
+        html: '<div class="skin neon"></div>'
       },
       cassette: {
         name: 'Tape Run',
-        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80',
-        slot: {
-          top: '38%',
-          left: '24%',
-          width: '52%',
-          height: '9%',
-          radius: '6px'
-        }
+        slot: { top: '40.8%', left: '25.8%', width: '48.4%', height: '8.5%', radius: '6px' },
+        html: '<div class="skin cassette"></div>'
       }
     };
 
@@ -559,10 +661,9 @@
     }
 
     function applySkin(key) {
-      const skin = skins[key] || skins.rock101;
-      skinImage.src = skin.image;
+      const skin = skins[key] || skins.boombox;
+      skinCanvas.innerHTML = skin.html;
       skinBadge.textContent = skin.name;
-
       document.documentElement.style.setProperty('--slot-top', skin.slot.top);
       document.documentElement.style.setProperty('--slot-left', skin.slot.left);
       document.documentElement.style.setProperty('--slot-width', skin.slot.width);
