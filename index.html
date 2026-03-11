@@ -104,13 +104,24 @@
       display: none;
     }#spotify-player-wrap {
   position: absolute;
-  top: 22px;
-  left: 68px;
-  width: 500px;
-  height: 64px;
+  #spotify-player-wrap {
+  position: absolute;
+  top: 26px;
+  left: 62px;
+  width: 510px;
+  height: 46px;
   border-radius: 6px;
   overflow: hidden;
   background: transparent;
+}
+
+/* shrink the spotify player */
+#spotify-player {
+  width: 100%;
+  height: 80px;
+  border: 0;
+  transform: scaleY(0.70);
+  transform-origin: top;
 }
 
     .note {
